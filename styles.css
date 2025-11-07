@@ -1,0 +1,252 @@
+:root {
+  --sidebar-bg: #333;
+  --sidebar-text: #fff; /* sidebar text stays white in both modes */
+  --hover-bg: #575757;
+  --content-bg: #f4f4f4;
+  --content-text: #121212; /* default content text (light mode) */
+}
+
+body.dark-mode {
+  --sidebar-bg: #1e1e1e;
+  --sidebar-text: #fff; /* still white in dark mode */
+  --hover-bg: #333;
+  --content-bg: #121212;
+  --content-text: #fff; /* white content text in dark mode */
+}
+
+h2 .carpark {
+  color: white;
+}
+
+.carpark {
+  border: 1px solid;
+  width: 250px;
+  height: 250px;
+  padding: 5px;
+
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  background-color: var(--content-bg);
+  transition: background 0.3s, color 0.3s;
+  color: #121212; /* default text color (light mode) */
+}
+
+/* --- DARK MODE TEXT FIX --- */
+body.dark-mode .sidebar,
+body.dark-mode .sidebar h2,
+body.dark-mode .sidebar ul li a,
+body.dark-mode .sidebar ul li i,
+body.dark-mode .submenu li a {
+  color: #ffffff !important; /* ensure sidebar text turns white */
+}
+
+/* Change text color in dark mode */
+body.dark-mode,
+body.dark-mode div,
+body.dark-mode #content,
+body.dark-mode .content,
+body.dark-mode h1,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode a {
+  color: #fff; /* white text in dark mode */
+}
+
+/* Sidebar */
+.sidebar {
+  height: 100vh;
+  width: 250px;
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 60px;
+  transition: width 0.3s ease, transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin: 0 0 20px;
+  font-size: 1.4em;
+  transition: opacity 0.3s;
+}
+
+.sidebar.collapsed h2 {
+  opacity: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar ul li:hover {
+  background-color: var(--hover-bg);
+}
+
+.sidebar ul li i {
+  font-size: 18px;
+  min-width: 25px;
+  text-align: center;
+}
+
+.sidebar.collapsed ul li a span {
+  display: none;
+}
+
+.submenu {
+  display: none;
+  list-style: none;
+  padding-left: 25px;
+  background-color: #2a2a2a;
+}
+
+.sidebar ul li.open .submenu {
+  display: block;
+}
+
+/* Content */
+.content {
+  margin-top: 30px;
+  margin-left: 250px;
+  padding: 20px;
+  flex: 1;
+  transition: margin-left 0.3s ease, color 0.3s;
+  color: var(--text-color);
+}
+
+.sidebar.collapsed ~ .content {
+  margin-left: 70px;
+}
+
+/* Buttons */
+.hamburger,
+.collapse-btn {
+  position: fixed;
+  top: 15px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 20px;
+  z-index: 1000;
+  transition: background 0.3s;
+}
+
+.hamburger:hover,
+.collapse-btn:hover {
+  background-color: #555;
+}
+
+.hamburger {
+  left: 15px;
+}
+
+.collapse-btn {
+  left: 70px;
+}
+
+.toggle-dark {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #555;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s;
+  z-index: 1000;
+}
+
+.toggle-dark:hover {
+  background: #777;
+}
+
+#search-bar {
+  padding: 10px;
+  font-size: 16px;
+  width: 250px;
+}
+
+#search-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-container {
+  position: relative;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .content {
+    margin-left: 0;
+  }
+
+  .collapse-btn {
+    display: none;
+  }
+
+  .search-container {
+  margin-bottom: 1em;
+}
+
+#results .result-item {
+  background: #f3f3f3;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#results .result-item:hover {
+  background: #e0e0e0;
+}
+}

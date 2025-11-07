@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collapsible Sidebar Dashboard</title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Hamburger for mobile -->
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
+
+  <!-- Collapse button for desktop -->
+  <button class="collapse-btn" onclick="collapseSidebar()">
+    <i class="fa-solid fa-angles-left"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2>Dashboard</h2>
+    <ul>
+      <li><a href="#" onclick="loadContent('home')"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+      <li><a href="html/carpark.html" target="_blank" onclick="loadContent('about')"><i class="fa-solid fa-user"></i> <span>Carpark</span></a></li>
+
+      <!-- Links -->
+      <li onclick="toggleSubmenu(this)">
+        <a href="#"><i class="fa-solid fa-gear"></i> <span>Links</span> 
+          <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i></a>
+        <ul class="submenu">
+          <li><a href="https://www.secureparking.com.au/en-au/" target="_blank">Secure Website</a></li>
+          <li><a href="https://secureparkinganz-my.sharepoint.com/personal/btrafiero_secureparking_com_au/_layouts/15/Doc.aspx?sourcedoc={6f162221-c4ec-468f-9fca-8749ab676c80}&action=view&wd=target%28LOCKOUT%20AND%20NIGHT%20SHIFT.one%7Cd775c6c0-3a9d-48eb-aeb7-9992bfa2a596%2FNIGHT%20SHIFT%20NOTES%7Ce3055e6f-11b4-420e-8856-cdb6ed602e0f%2F%29&wdorigin=NavigationUrl" target="_blank"> KB / Lockout List</a></li>
+          <li><a href="https://ops.secureparking.com.au/#/" target="_blank">AMP</a></li>
+        </ul>
+      </li>
+
+        <!-- Car park web tools-->      
+       <li onclick="toggleSubmenu(this)">
+        <a href="#"><i class="fa-solid fa-gear"></i> <span>Car Park web tools</span> 
+          <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i></a>
+        <ul class="submenu">
+          <li><a href="https://www.ezicom2.com/SEC" target="_blank">EZcom</a></li>
+          <li><a href="https://admin.inugo.com/operator/3/organization/68/user-information" target="_blank">Inugo</a></li>
+          <li><a href="https://www.timecalculator.net/hours-ago-calculator#google_vignette" target="_blank">Time Calculator</a></li>
+        </ul>
+      </li>
+
+      <!-- References drop down-->
+
+      <li onclick="toggleSubmenu(this)">
+        <a href="#"><i class="fa-solid fa-gear"></i> <span>References</span> 
+          <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i></a>
+        <ul class="submenu">
+          <li><a href="https://secureparkinganz-my.sharepoint.com/:x:/r/personal/btrafiero_secureparking_com_au/_layouts/15/doc2.aspx?sourcedoc=%7B3B3BF67E-74D2-415E-A785-F49B48DB5BD9%7D&file=NCC%20Schedule%20and%20Roster.xlsx&action=default&mobileredirect=true&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1762234357968&web=1" target="_blank">NCC Schedule</a></li>
+          <li><a href="https://secureparking.ipscape.com.au/reports/wallboard?p=e7a03fd30145a815df80242941524fb5a33ee9dedb76799e09b2c63d2a16b8bc&c=57" target="_blank">NCC Wallboard</a></li>
+          <li><a href="https://secureparkinganz-my.sharepoint.com/:x:/r/personal/aarago_secureparking_com_au/_layouts/15/doc2.aspx?sourcedoc=%7B2E51F2D1-8B47-44B0-A730-A3D88E2A48FC%7D&file=NCC%20Tracker%20and%20Templates_2023.xlsx&action=default&mobileredirect=true&cid=eea4bd0a-e9f1-4999-a7bd-81fd92775359" target="_blank">NCC Tracker/ Templates</a></li>
+        </ul>
+      </li>
+
+      <!-- CA Tools-->
+
+      <li onclick="toggleSubmenu(this)">
+        <a href="#"><i class="fa-solid fa-gear"></i> <span>CA Tools</span> 
+          <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i></a>
+        <ul class="submenu">
+          <li><a href="https://manage.billing.secureparking.com.au/#/" target="_blank">BSE</a></li>
+          <li><a href="https://secureparkinganz-my.sharepoint.com/:x:/r/personal/allyson_arroyo_secureparking_com_au/_layouts/15/doc2.aspx?sourcedoc=%7BAC4D83B6-2B07-4542-98F1-8E358FD79390%7D&file=Pro-rata%20Calculator.xlsx&wdLOR=cBC8E9BED-8568-4131-B18A-F5812E96471A&fromShare=true&action=default&mobileredirect=true" target="_blank">Pro Rata Calculator</a></li>
+          <li><a href="https://secureparkinganz-my.sharepoint.com/:o:/r/personal/aarago_secureparking_com_au/_layouts/15/Doc.aspx?sourcedoc=%7Bba08449a-15ec-4deb-a8ba-6cb0213e83c5%7D&action=view&wd=target(Learning%20and%20Development%20Team%20Corner.one%7Cef29d70f-b16d-4bf7-8590-0ee5421e57d4%2FTransfer%20matrix%202024%7Cb2b97dfb-f906-4d2b-ad60-0fd3b1a143bd%2F)&wdorigin=NavigationUrl" target="_blank">CA KB</a></li>
+        </ul>
+      </li>
+
+
+      <li><a href="https://it.secureparking.com.au/support/home" target="_blank"><i class="fa-solid fa-envelope"></i> <span>Freshworks</span></a></li>
+    </ul>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+    <h1>Welcome!</h1>
+    <p>This sidebar can collapse to icons on desktop and slide out on mobile.  
+       It also supports dark mode and dropdown menus.</p>
+  </div>
+
+  <div class="search-container">
+  <h3>Search carpark here</h3>
+  <input type="text" id="search-bar" placeholder="Type something..." />
+  <button id="search-button">Search</button>
+</div>
+
+<!-- Where search results will show -->
+<div id="results"></div>
+  
+  <!-- Dark Mode Button -->
+  <button class="toggle-dark" onclick="toggleDarkMode()">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+  
+  
+ 
+ 
+
+  <!-- External JS -->
+  <script src="draft.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>

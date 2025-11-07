@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collapsible Card List</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 30px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  /* Card styling */
+  .card {
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #333;
+    color: white;
+    padding: 15px 20px;
+    cursor: pointer;
+  }
+
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.1em;
+  }
+
+  .card-header button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  .card-content {
+    display: none;
+    padding: 20px;
+    background: #fafafa;
+    color: #333;
+    animation: slideDown 0.3s ease;
+  }
+
+  .card.open .card-content {
+    display: block;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Add form */
+  .add-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .add-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .add-form button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .add-form button:hover {
+    background: #555;
+  }
+
+  .clear-btn {
+    display: block;
+    margin: 10px auto;
+    background: crimson;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .clear-btn:hover {
+    background: darkred;
+  }
+</style>
+</head>
+<body>
+
+<h1>📋 Collapsible Card List</h1>
+
+<div class="container">
+  <div class="add-form">
+    <input type="text" id="titleInput" placeholder="Enter item title..." />
+    <input type="text" id="contentInput" placeholder="Enter item details..." />
+    <button id="addBtn">Add</button>
+  </div>
+
+  <div id="cardList"></div>
+
+  <button class="clear-btn" id="clearBtn">Clear All</button>
+</div>
+
+<script>
+  const cardList = document.getElementById("cardList");
+  const titleInput = document.getElementById("titleInput");
+  const contentInput = document.getElementById("contentInput");
+  const addBtn = document.getElementById("addBtn");
+  const clearBtn = document.getElementById("clearBtn");
+
+  // Load from localStorage
+  let cards = JSON.parse(localStorage.getItem("cardList")) || [];
+
+  function renderCards() {
+    cardList.innerHTML = "";
+    cards.forEach((card, index) => {
+      const cardEl = document.createElement("div");
+      cardEl.className = "card" + (card.open ? " open" : "");
+      cardEl.innerHTML = `
+        <div class="card-header" onclick="toggleCard(${index})">
+          <h3>${card.title}</h3>
+          <button>${card.open ? "−" : "+"}</button>
+        </div>
+        <div class="card-content">${card.content}</div>
+      `;
+      cardList.appendChild(cardEl);
+    });
+  }
+
+  function toggleCard(index) {
+    cards[index].open = !cards[index].open;
+    saveData();
+    renderCards();
+  }
+
+  addBtn.addEventListener("click", () => {
+    const title = titleInput.value.trim();
+    const content = contentInput.value.trim();
+    if (!title || !content) return alert("Please fill in both fields!");
+    cards.push({ title, content, open: false });
+    saveData();
+    renderCards();
+    titleInput.value = "";
+    contentInput.value = "";
+  });
+
+  clearBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to clear all items?")) {
+      cards = [];
+      saveData();
+      renderCards();
+    }
+  });
+
+  function saveData() {
+    localStorage.setItem("cardList", JSON.stringify(cards));
+  }
+
+  // Expose toggle function to global scope
+  window.toggleCard = toggleCard;
+
+  renderCards();
+</script>
+
+</body>
+</html>
